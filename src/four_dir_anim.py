@@ -19,7 +19,7 @@ import pygame as pg
 CAPTION = "4-Direction Movement with Animation"
 SCREEN_SIZE = (500, 500)
 
-BACKGROUND_COLOR = pg.Color("slategray")
+BACKGROUND_COLOR = pg.Color("black")
 COLOR_KEY = pg.Color("magenta")
 
 DIRECT_DICT = {pg.K_LEFT  : (-1, 0),
@@ -223,7 +223,7 @@ def main():
     pg.init()
     pg.display.set_caption(CAPTION)
     pg.display.set_mode(SCREEN_SIZE)
-    SKEL_IMAGE = pg.image.load("skelly.png").convert()
+    SKEL_IMAGE = pg.image.load("asteroids.png").convert()
     SKEL_IMAGE.set_colorkey(COLOR_KEY)
     App().main_loop()
     pg.quit()
