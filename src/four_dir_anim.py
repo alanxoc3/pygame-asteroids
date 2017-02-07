@@ -12,6 +12,7 @@ Extra work must be done to make key overlaps execute cleanly.
 import os
 import sys
 import itertools
+import asteroid as asts
 
 import pygame as pg
 
@@ -138,6 +139,8 @@ class Player(object):
         surface.blit(self.image, self.rect)
 
 
+import assets
+
 class App(object):
     """
     A class to manage our event, game loop, and overall program flow.
@@ -153,7 +156,7 @@ class App(object):
         self.fps = 60
         self.done = False
         self.keys = pg.key.get_pressed()
-        self.player = Player(self.screen_rect.center, 3)
+        self.player = asts.Asteroid(self.screen_rect.center, 3)
 
     def event_loop(self):
         """
@@ -170,7 +173,7 @@ class App(object):
         """
         Show the program's FPS in the window handle.
         """
-        caption = "{} - FPS: {:.2f}".format(CAPTION, self.clock.get_fps())
+        caption = "{} - FPS: {:.2f}".format(assets.CAPTION, self.clock.get_fps())
         pg.display.set_caption(caption)
 
     def update(self):
@@ -185,7 +188,7 @@ class App(object):
         """
         Perform all necessary drawing and update the screen.
         """
-        self.screen.fill(BACKGROUND_COLOR)
+        self.screen.fill(assets.BACKGROUND_COLOR)
         self.player.draw(self.screen)
         pg.display.update()
         
@@ -271,17 +274,18 @@ def showStartScreen():
          degrees1 += 3 # rotate by 3 degrees each frame
          degrees2 += 7 # rotate by 7 degrees each frame
 
+
 def main():
     """
     Prepare our environment, create a display, and start the program.
     """
-    global SKEL_IMAGE
     os.environ['SDL_VIDEO_CENTERED'] = '1'
     pg.init()
-    pg.display.set_caption(CAPTION)
-    pg.display.set_mode(SCREEN_SIZE)
-    SKEL_IMAGE = pg.image.load("asteroids.png").convert()
-    SKEL_IMAGE.set_colorkey(COLOR_KEY)
+    pg.display.set_caption(assets.CAPTION)
+    pg.display.set_mode(assets.SCREEN_SIZE)
+
+    assets.load_assets()
+
     App().main_loop()
     pg.quit()
     sys.exit()
