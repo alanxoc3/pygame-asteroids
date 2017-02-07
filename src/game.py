@@ -1,12 +1,8 @@
 #! /usr/bin/env python
 
 """
-This script implements a basic sprite that can only move orthogonally.
-Orthogonal-only movement is slightly trickier than 8-direction movement
-because you can't just create a simple movement vector.
-Extra work must be done to make key overlaps execute cleanly.
-
--Written by Sean J. McKiernan 'Mekire'
+A Relaxing Asteroids game.
+-Written by: Alan Morgan and Cameron Fife.
 """
 
 import os

@@ -1,5 +1,6 @@
 import pygame as pg
 
+global b
 CAPTION = "4-Direction Movement with Animation"
 SCREEN_SIZE = (500, 500)
 
@@ -17,4 +18,4 @@ GREEN     = (  0, 255,   0)
 
 def load_assets():
     global ASTEROID_SHEET
-    ASTEROID_SHEET = pg.image.load("asteroids.png").convert_alpha()
+    ASTEROID_SHEET = pg.image.load("assets/asteroids.png").convert_alpha()
