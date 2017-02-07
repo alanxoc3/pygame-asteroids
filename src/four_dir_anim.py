@@ -43,7 +43,6 @@ class App(object):
                 self.done = True
             elif event.type in (pg.KEYUP, pg.KEYDOWN):
                 self.keys = pg.key.get_pressed() 
-            self.player.get_event(event)
 
     def display_fps(self):
         """
