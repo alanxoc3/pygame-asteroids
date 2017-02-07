@@ -124,15 +124,15 @@ def showStartScreen():
       
          
       
-         DISPLAYSURF.fill(BGCOLOR)
+         DISPLAYSURF.fill(assets.BGCOLOR)
          rotatedSurf1 = pg.transform.rotate(titleSurf1, degrees1)
          rotatedRect1 = rotatedSurf1.get_rect()
-         rotatedRect1.center = (WINDOWWIDTH / 2, WINDOWHEIGHT / 2)
+         rotatedRect1.center = (500 / 2, 500 / 2)
          DISPLAYSURF.blit(rotatedSurf1, rotatedRect1)
 
          rotatedSurf2 = pg.transform.rotate(titleSurf2, degrees2)
          rotatedRect2 = rotatedSurf2.get_rect()
-         rotatedRect2.center = (WINDOWWIDTH / 2, WINDOWHEIGHT / 2)
+         rotatedRect2.center = (500 / 2, 500 / 2)
          DISPLAYSURF.blit(rotatedSurf2, rotatedRect2)
           
          
