@@ -1,12 +1,8 @@
 #! /usr/bin/env python
 
 """
-This script implements a basic sprite that can only move orthogonally.
-Orthogonal-only movement is slightly trickier than 8-direction movement
-because you can't just create a simple movement vector.
-Extra work must be done to make key overlaps execute cleanly.
-
--Written by Sean J. McKiernan 'Mekire'
+A Relaxing Asteroids game.
+-Written by: Alan Morgan and Cameron Fife.
 """
 
 import os
@@ -108,53 +104,42 @@ def checkForKeyPress():
 	        terminate()		
 	    return keyUpEvents[0].key
     
+    
+def drawPressKeyMsg():		
+	    pressKeySurf = BASICFONT.render('Press a key to play.', True, DARKGRAY)		
+	    pressKeyRect = pressKeySurf.get_rect()		
+	    pressKeyRect.topleft = (500 - 200, 500 - 30)		
+	    DISPLAYSURF.blit(pressKeySurf, pressKeyRect)
+    
+    
 def showStartScreen():
-     titleFont = pg.font.Font('freesansbold.ttf', 100)
+    titleFont = pg.font.Font('freesansbold.ttf', 100)
      
      
      
-     titleSurf1 = titleFont.render('Wormy!', True, assets.WHITE, assets.DARKGREEN)
-     titleSurf2 = titleFont.render('Wormy!', True, assets.GREEN)
+    # titleSurf1 = titleFont.render('Wormy!', True, assets.WHITE, assets.DARKGREEN)
+    # titleSurf2 = titleFont.render('Wormy!', True, assets.GREEN)
 
-     
-     
-     degrees1 = 0
-     degrees2 = 0
-     while True:
-      
-         
-      
-         DISPLAYSURF.fill(assets.BGCOLOR)
-         rotatedSurf1 = pg.transform.rotate(titleSurf1, degrees1)
-         rotatedRect1 = rotatedSurf1.get_rect()
-         rotatedRect1.center = (500 / 2, 500 / 2)
-         DISPLAYSURF.blit(rotatedSurf1, rotatedRect1)
-
-         rotatedSurf2 = pg.transform.rotate(titleSurf2, degrees2)
-         rotatedRect2 = rotatedSurf2.get_rect()
-         rotatedRect2.center = (500 / 2, 500 / 2)
-         DISPLAYSURF.blit(rotatedSurf2, rotatedRect2)
-          
-         
-         
-         drawPressKeyMsg()
-         
-         
-         if checkForKeyPress():
-             pg.event.get() # clear event queue
-             return
-         pg.display.update()
-         """
-         pg.FPSCLOCK.tick(FPS)
-         """
-         degrees1 += 3 # rotate by 3 degrees each frame
-         degrees2 += 7 # rotate by 7 degrees each frame
-
+    
+    myfont = pg.font.SysFont("monospace", 15)
+    
+    # render text
+    label = myfont.render("Some text!", 1, (255,255,0))
+    DISPLAYSURF.blit(label, (100, 100))
+    
+    while True:  
+      if checkForKeyPress():
+        pg.event.get() # clear event queue
+        return
+        pg.display.update()
 
 def main():
     """
     Prepare our environment, create a display, and start the program.
     """
+    
+    
+    
     global DISPLAYSURF
     os.environ['SDL_VIDEO_CENTERED'] = '1'
     pg.init()
