@@ -246,7 +246,7 @@ def showStartScreen():
      degrees2 = 0
      while True:
       
-         """
+         
       
          DISPLAYSURF.fill(BGCOLOR)
          rotatedSurf1 = pg.transform.rotate(titleSurf1, degrees1)
@@ -258,11 +258,11 @@ def showStartScreen():
          rotatedRect2 = rotatedSurf2.get_rect()
          rotatedRect2.center = (WINDOWWIDTH / 2, WINDOWHEIGHT / 2)
          DISPLAYSURF.blit(rotatedSurf2, rotatedRect2)
-
+          
          
          
          drawPressKeyMsg()
-         """
+         
          
          if checkForKeyPress():
              pg.event.get() # clear event queue
@@ -279,10 +279,11 @@ def main():
     """
     Prepare our environment, create a display, and start the program.
     """
+    global DISPLAYSURF
     os.environ['SDL_VIDEO_CENTERED'] = '1'
     pg.init()
     pg.display.set_caption(assets.CAPTION)
-    pg.display.set_mode(assets.SCREEN_SIZE)
+    DISPLAYSURF = pg.display.set_mode(assets.SCREEN_SIZE)
 
     assets.load_assets()
 
