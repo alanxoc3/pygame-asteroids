@@ -8,6 +8,7 @@ class Asteroid(object):
     The Asteroid class
     """
     SIZE = (72, 72)
+    SHEET_DIM = (5, 4)
     
     def __init__(self, pos, speed):
         self.speed = speed
@@ -15,11 +16,11 @@ class Asteroid(object):
         self.animate_timer = 0.0
         self.animate_fps = 7
         self.make_frames()
-        self.image = self.frames[0]
+        self.image = self.frames[0][0]
         self.rect = self.image.get_rect(center=pos)
 
     def make_frames(self):
-        self.frames = tools.split_sheet(assets.ASTEROID_SHEET, Asteroid.SIZE, 5, 4)[0]
+        self.frames = tools.split_sheet(assets.ASTEROID_SHEET, Asteroid.SIZE, Asteroid.SHEET_DIM)
 
     def make_image(self, now):
         """

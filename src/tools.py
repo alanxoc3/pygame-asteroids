@@ -1,6 +1,6 @@
 import pygame as pg
 
-def split_sheet(sheet, size, columns, rows):
+def split_sheet(sheet, size, dims):
     """
     Divide a loaded sprite sheet into subsurfaces.
     
@@ -9,9 +9,9 @@ def split_sheet(sheet, size, columns, rows):
     vertically.
     """
     subsurfaces = []
-    for y in range(rows):
+    for y in range(dims[1]):
         row = []
-        for x in range(columns): 
+        for x in range(dims[0]): 
             rect = pg.Rect((x*size[0], y*size[1]), size)
             row.append(sheet.subsurface(rect))
         subsurfaces.append(row)
