@@ -19,7 +19,7 @@ class Asteroid(object):
         self.rect = self.image.get_rect(center=pos)
 
     def make_frames(self):
-        self.frames = tools.split_sheet(assets.SKEL_IMAGE, Asteroid.SIZE, 5, 4)[0]
+        self.frames = tools.split_sheet(assets.ASTEROID_SHEET, Asteroid.SIZE, 5, 4)[0]
 
     def make_image(self, now):
         """
