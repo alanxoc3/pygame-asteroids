@@ -29,7 +29,7 @@ class App(object):
     self.fps = 60
     self.done = False
     self.keys = pg.key.get_pressed()
-    self.player = asts.Asteroid(self.screen_rect.center, 3)
+    self.asteroid = asts.Asteroid(self.screen_rect.center, 3)
 
   def event_loop(self):
     """
@@ -54,14 +54,14 @@ class App(object):
     The current time is passed for purposes of animation.
     """
     now = pg.time.get_ticks()
-    self.player.update(now, self.screen_rect)
+    self.asteroid.update(now, self.screen_rect)
 
   def render(self):
     """
     Perform all necessary drawing and update the screen.
     """
     self.screen.fill(assets.BACKGROUND_COLOR)
-    self.player.draw(self.screen)
+    self.asteroid.draw(self.screen)
     pg.display.update()
     
   def main_loop(self):

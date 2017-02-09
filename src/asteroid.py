@@ -35,6 +35,7 @@ class Asteroid(object):
     """
     Updates our player appropriately every frame.
     """
+    self.rect.x += 1
     pass
 
   def draw(self, surface):
