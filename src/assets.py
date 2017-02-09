@@ -18,6 +18,9 @@ GREEN     = (  0, 255,   0)
 BLACK     = (  0,   0,   0)
 BGCOLOR   = BLACK
 
+QUOTES = ["You've had a long day at work.", "Don't feel so tense,", "You need to treat yourself more."]
+QUOTERS = ["You need to relax", "you're safe here.", "Play our game."]
+
 
 def load_assets():
   global ASTEROID_SHEET

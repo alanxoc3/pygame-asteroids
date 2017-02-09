@@ -9,6 +9,7 @@ import os
 import sys
 import itertools
 import asteroid as asts
+import random
 
 import pygame as pg
 
@@ -106,15 +107,20 @@ def checkForKeyPress():
          
   
 def showStartScreen():
+  myfont = pg.font.SysFont("monospace", 15)
+  label = myfont.render("Press Any Key To Continue", 1, (255,255,255))
+  
+  num = random.randint(0, 2)
+  
+  
+  inspiration1 = myfont.render(assets.QUOTES[num], 1, (255,255,255))
+  inspiration2 = myfont.render(assets.QUOTERS[num], 1, (255,255,255))
+  
   while True:
-    
-    myfont = pg.font.SysFont("monospace", 15)
-    
-    # render text
-    label = myfont.render("Press Any Key To Continue", 1, (255,255,255))
-    DISPLAYSURF.blit(label, (150, 400))
-    
-    
+    # render text  
+    DISPLAYSURF.blit(label, (140, 400))
+    DISPLAYSURF.blit(inspiration1, (140, 100))
+    DISPLAYSURF.blit(inspiration2, (140, 120))
     
     if checkForKeyPress():
       pg.event.get() # clear event queue
@@ -125,6 +131,7 @@ def main():
   """
   Prepare our environment, create a display, and start the program.
   """
+  random.seed()
   global DISPLAYSURF
   os.environ['SDL_VIDEO_CENTERED'] = '1'
   pg.init()
