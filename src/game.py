@@ -28,7 +28,6 @@ class App(object):
     self.clock  = pg.time.Clock()
     self.fps = 60
     self.done = False
-    self.keys = pg.key.get_pressed()
     self.asteroid = asts.Asteroid(self.screen_rect.center, 3)
 
   def event_loop(self):
@@ -36,10 +35,11 @@ class App(object):
     Pass events on to the player.
     """
     for event in pg.event.get():
-      if event.type == pg.QUIT or self.keys[pg.K_ESCAPE]:
+      if event.type == pg.QUIT:
         self.done = True
       elif event.type in (pg.KEYUP, pg.KEYDOWN):
-        self.keys = pg.key.get_pressed() 
+        return True
+    return False
 
   def display_fps(self):
     """
@@ -63,19 +63,38 @@ class App(object):
     self.screen.fill(assets.BACKGROUND_COLOR)
     self.asteroid.draw(self.screen)
     pg.display.update()
+
+  def render_start_screen(self):
+    """
+    Perform all necessary drawing and update the screen.
+    """
+    self.screen.fill(assets.BACKGROUND_COLOR)
+    DISPLAYSURF.blit(assets.LABEL, (150, 400))
+    pg.display.update()
     
   def main_loop(self):
     """
     Our main game loop; I bet you'd never have guessed.
     """
-    showStartScreen()
+    startScreen = True
+
     while not self.done:
-      self.event_loop()
-      self.update()
-      self.render()
+      tmp = self.event_loop()
+
+      if not startScreen:
+        self.update()
+
+      # Render
+      if startScreen:
+        self.render_start_screen()
+      else:
+        self.render()
+
+      if startScreen:
+        startScreen = not tmp
+
       self.clock.tick(self.fps)
       self.display_fps()
-
 
 def split_sheet(sheet, size, columns, rows):
   """
@@ -93,9 +112,7 @@ def split_sheet(sheet, size, columns, rows):
       row.append(sheet.subsurface(rect))
     subsurfaces.append(row)
   return subsurfaces
-  
 
-  
 def checkForKeyPress():
   keyUpEvents = pg.event.get(pg.KEYUP)		
   if len(keyUpEvents) == 0:		
@@ -104,23 +121,6 @@ def checkForKeyPress():
     terminate()
   return keyUpEvents[0].key
          
-  
-def showStartScreen():
-  while True:
-    
-    myfont = pg.font.SysFont("monospace", 15)
-    
-    # render text
-    label = myfont.render("Press Any Key To Continue", 1, (255,255,255))
-    DISPLAYSURF.blit(label, (150, 400))
-    
-    
-    
-    if checkForKeyPress():
-      pg.event.get() # clear event queue
-      return
-    pg.display.update()
-    
 def main():
   """
   Prepare our environment, create a display, and start the program.

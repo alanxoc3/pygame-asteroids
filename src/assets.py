@@ -1,6 +1,5 @@
 import pygame as pg
 
-global b
 CAPTION = "4-Direction Movement with Animation"
 SCREEN_SIZE = (500, 500)
 
@@ -18,7 +17,11 @@ GREEN     = (  0, 255,   0)
 BLACK     = (  0,   0,   0)
 BGCOLOR   = BLACK
 
-
 def load_assets():
   global ASTEROID_SHEET
+  global LABEL
+  global FONT
+
+  FONT = pg.font.Font(None, 15)
+  LABEL = FONT.render("Press Any Key To Continue", 1, (255,255,255))
   ASTEROID_SHEET = pg.image.load("assets/asteroids.png").convert_alpha()
