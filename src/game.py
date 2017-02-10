@@ -10,6 +10,7 @@ import sys
 import itertools
 import asteroid as asts
 
+
 import pygame as pg
 
 import assets
@@ -69,7 +70,9 @@ class App(object):
     Perform all necessary drawing and update the screen.
     """
     self.screen.fill(assets.BACKGROUND_COLOR)
-    DISPLAYSURF.blit(assets.LABEL, (150, 400))
+    DISPLAYSURF.blit(assets.QUOTE1, (125, 100))
+    DISPLAYSURF.blit(assets.QUOTE2, (125, 130))
+    DISPLAYSURF.blit(assets.LABEL, (125, 400))
     pg.display.update()
     
   def main_loop(self):
@@ -121,6 +124,7 @@ def checkForKeyPress():
     terminate()
   return keyUpEvents[0].key
          
+
 def main():
   """
   Prepare our environment, create a display, and start the program.
