@@ -9,7 +9,7 @@ import os
 import sys
 import itertools
 import asteroid as asts
-import random
+
 
 import pygame as pg
 
@@ -29,7 +29,6 @@ class App(object):
     self.clock  = pg.time.Clock()
     self.fps = 60
     self.done = False
-    self.keys = pg.key.get_pressed()
     self.asteroid = asts.Asteroid(self.screen_rect.center, 3)
 
   def event_loop(self):
@@ -37,10 +36,11 @@ class App(object):
     Pass events on to the player.
     """
     for event in pg.event.get():
-      if event.type == pg.QUIT or self.keys[pg.K_ESCAPE]:
+      if event.type == pg.QUIT:
         self.done = True
       elif event.type in (pg.KEYUP, pg.KEYDOWN):
-        self.keys = pg.key.get_pressed() 
+        return True
+    return False
 
   def display_fps(self):
     """
@@ -64,19 +64,40 @@ class App(object):
     self.screen.fill(assets.BACKGROUND_COLOR)
     self.asteroid.draw(self.screen)
     pg.display.update()
+
+  def render_start_screen(self):
+    """
+    Perform all necessary drawing and update the screen.
+    """
+    self.screen.fill(assets.BACKGROUND_COLOR)
+    DISPLAYSURF.blit(assets.QUOTE1, (125, 100))
+    DISPLAYSURF.blit(assets.QUOTE2, (125, 130))
+    DISPLAYSURF.blit(assets.LABEL, (125, 400))
+    pg.display.update()
     
   def main_loop(self):
     """
     Our main game loop; I bet you'd never have guessed.
     """
-    showStartScreen()
+    startScreen = True
+
     while not self.done:
-      self.event_loop()
-      self.update()
-      self.render()
+      tmp = self.event_loop()
+
+      if not startScreen:
+        self.update()
+
+      # Render
+      if startScreen:
+        self.render_start_screen()
+      else:
+        self.render()
+
+      if startScreen:
+        startScreen = not tmp
+
       self.clock.tick(self.fps)
       self.display_fps()
-
 
 def split_sheet(sheet, size, columns, rows):
   """
@@ -94,9 +115,7 @@ def split_sheet(sheet, size, columns, rows):
       row.append(sheet.subsurface(rect))
     subsurfaces.append(row)
   return subsurfaces
-  
 
-  
 def checkForKeyPress():
   keyUpEvents = pg.event.get(pg.KEYUP)		
   if len(keyUpEvents) == 0:		
@@ -105,33 +124,11 @@ def checkForKeyPress():
     terminate()
   return keyUpEvents[0].key
          
-  
-def showStartScreen():
-  myfont = pg.font.SysFont("monospace", 15)
-  label = myfont.render("Press Any Key To Continue", 1, (255,255,255))
-  
-  num = random.randint(0, 2)
-  
-  
-  inspiration1 = myfont.render(assets.QUOTES[num], 1, (255,255,255))
-  inspiration2 = myfont.render(assets.QUOTERS[num], 1, (255,255,255))
-  
-  while True:
-    # render text  
-    DISPLAYSURF.blit(label, (140, 400))
-    DISPLAYSURF.blit(inspiration1, (140, 100))
-    DISPLAYSURF.blit(inspiration2, (140, 120))
-    
-    if checkForKeyPress():
-      pg.event.get() # clear event queue
-      return
-    pg.display.update()
-    
+
 def main():
   """
   Prepare our environment, create a display, and start the program.
   """
-  random.seed()
   global DISPLAYSURF
   os.environ['SDL_VIDEO_CENTERED'] = '1'
   pg.init()
