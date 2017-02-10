@@ -70,9 +70,9 @@ class App(object):
     Perform all necessary drawing and update the screen.
     """
     self.screen.fill(assets.BACKGROUND_COLOR)
-    DISPLAYSURF.blit(assets.QUOTE1, (125, 100))
-    DISPLAYSURF.blit(assets.QUOTE2, (125, 130))
-    DISPLAYSURF.blit(assets.LABEL, (125, 400))
+    DISPLAYSURF.blit(assets.QUOTE1, (90, 100))
+    DISPLAYSURF.blit(assets.QUOTE2, (90, 130))
+    DISPLAYSURF.blit(assets.LABEL, (90, 400))
     pg.display.update()
     
   def main_loop(self):
@@ -80,6 +80,8 @@ class App(object):
     Our main game loop; I bet you'd never have guessed.
     """
     startScreen = True
+    
+    pg.mixer.Sound.play(assets.RELAX)
 
     while not self.done:
       tmp = self.event_loop()

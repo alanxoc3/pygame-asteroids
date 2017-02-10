@@ -28,12 +28,14 @@ def load_assets():
   global FONT
   global QUOTE1
   global QUOTE2
+  global RELAX
   
  
 
   random.seed()
   
-  QUOTES1 = ["You've had a long day at work.", "Don't feel so tense,", "You need to treat yourself more."]
+  RELAX = ["assets/relax1.wav", "assets/relax3.wav", "assets/relax2.wav"]
+  QUOTES1 = ["You've must've had a long day at work.", "Don't feel so tense,", "You need to treat yourself more."]
   QUOTES2 = ["You need to relax", "you're safe here.", "Play our game."]
   num = random.randint(0, 2)
   
@@ -42,4 +44,5 @@ def load_assets():
   LABEL = FONT.render("Press Any Key To Continue", 1, (255,255,255))
   QUOTE1 = FONT.render(QUOTES1[num], 1, (255,255,255))
   QUOTE2 = FONT.render(QUOTES2[num], 1, (255,255,255))
+  RELAX = pg.mixer.Sound(RELAX[num])
   ASTEROID_SHEET = pg.image.load("assets/asteroids.png").convert_alpha()
