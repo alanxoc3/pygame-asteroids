@@ -70,9 +70,9 @@ class App(object):
     Perform all necessary drawing and update the screen.
     """
     self.screen.fill(assets.BACKGROUND_COLOR)
-    DISPLAYSURF.blit(assets.QUOTE1, (90, 100))
-    DISPLAYSURF.blit(assets.QUOTE2, (90, 130))
-    DISPLAYSURF.blit(assets.LABEL, (90, 400))
+    assets.DISPLAYSURF.blit(assets.QUOTE1, (90, 100))
+    assets.DISPLAYSURF.blit(assets.QUOTE2, (90, 130))
+    assets.DISPLAYSURF.blit(assets.LABEL, (90, 400))
     pg.display.update()
     
   def main_loop(self):
@@ -131,11 +131,9 @@ def main():
   """
   Prepare our environment, create a display, and start the program.
   """
-  global DISPLAYSURF
   os.environ['SDL_VIDEO_CENTERED'] = '1'
   pg.init()
   pg.display.set_caption(assets.CAPTION)
-  DISPLAYSURF = pg.display.set_mode(assets.SCREEN_SIZE)
   assets.load_assets()
 
   App().main_loop()

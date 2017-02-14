@@ -22,6 +22,7 @@ BGCOLOR   = BLACK
 
 
 
+
 def load_assets():
   global ASTEROID_SHEET
   global LABEL
@@ -29,8 +30,12 @@ def load_assets():
   global QUOTE1
   global QUOTE2
   global RELAX
+  global DISPLAYSURF
   
- 
+  global score
+  score = 0
+
+  DISPLAYSURF = pg.display.set_mode(SCREEN_SIZE)
 
   random.seed()
   
@@ -45,4 +50,4 @@ def load_assets():
   QUOTE1 = FONT.render(QUOTES1[num], 1, (255,255,255))
   QUOTE2 = FONT.render(QUOTES2[num], 1, (255,255,255))
   RELAX = pg.mixer.Sound(RELAX[num])
-  ASTEROID_SHEET = pg.image.load("assets/asteroids.png").convert_alpha()
+  ASTEROID_SHEET = pg.image.load("assets/asteroids.png")
