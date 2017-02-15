@@ -50,7 +50,7 @@ def load_assets():
 
   
   FONT = pg.font.Font(None, 30)
-  LABEL = FONT.render("Press Any Key To Continue", 1, (255,255,255))
+  LABEL = FONT.render("Click to Continue", 1, (255,255,255))
   QUOTE1 = FONT.render(QUOTES1[num], 1, (255,255,255))
   QUOTE2 = FONT.render(QUOTES2[num], 1, (255,255,255))
   RELAX = pg.mixer.Sound(RELAX[num])
