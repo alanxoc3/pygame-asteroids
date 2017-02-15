@@ -31,6 +31,7 @@ class App(object):
     self.done = False
     # Starting Point, Speed, Trajectory Angle, Rotation Speed 
     self.astList = astgroup.AsteroidGroup()
+    self.astList.spawnAsteroid()
 
   def event_loop(self):
     """
