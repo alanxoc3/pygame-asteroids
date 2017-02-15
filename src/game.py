@@ -157,6 +157,8 @@ def main():
   pg.init()
   pg.display.set_caption(assets.CAPTION)
   assets.load_assets()
+  
+  pg.mouse.set_cursor(*pg.cursors.broken_x)
 
   App().main_loop()
   pg.quit()
