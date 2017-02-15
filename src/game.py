@@ -32,6 +32,7 @@ class App(object):
     # Starting Point, Speed, Trajectory Angle, Rotation Speed 
     self.astList = astgroup.AsteroidGroup()
     self.astList.spawnAsteroid()
+    self.keys = pg.key.get_pressed() # All the keys currently held.
     self.prev = 0
 
   def event_loop(self):
@@ -39,7 +40,7 @@ class App(object):
     Pass events on to the player.
     """
     for event in pg.event.get():
-      if event.type == pg.QUIT:
+      if event.type == pg.QUIT or self.keys[pg.K_ESCAPE]:
         self.done = True
       if event.type == pg.MOUSEBUTTONUP:
         return True
@@ -123,32 +124,6 @@ def playSong():
   pg.mixer.music.load(assets.SONGS[myNum])
   pg.mixer.music.play(assets.SONGSPLAYTIMES[myNum])
       
-      
-def split_sheet(sheet, size, columns, rows):
-  """
-  Divide a loaded sprite sheet into subsurfaces.
-  
-  The argument size is the width and height of each frame (w,h)
-  columns and rows are the integer number of cells horizontally and
-  vertically.
-  """
-  subsurfaces = []
-  for y in range(rows):
-    row = []
-    for x in range(columns): 
-      rect = pg.Rect((x*size[0], y*size[1]), size)
-      row.append(sheet.subsurface(rect))
-    subsurfaces.append(row)
-  return subsurfaces
-
-def checkForKeyPress():
-  keyUpEvents = pg.event.get(pg.KEYUP)		
-  if len(keyUpEvents) == 0:		
-    return None		
-  if keyUpEvents[0].key == pg.K_ESCAPE:		
-    terminate()
-  return keyUpEvents[0].key
-
 def main():
   """
   Prepare our environment, create a display, and start the program.
