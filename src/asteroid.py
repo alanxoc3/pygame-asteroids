@@ -1,49 +1,39 @@
 import pygame as pg
 import tools
+import math
 import assets
-import itertools
+from random import randint
 
 class Asteroid(object):
   """
   The Asteroid class
   """
-  SIZE = (72, 72)
-  SHEET_DIM = (5, 4)
-  
-  def __init__(self, pos, speed):
-    self.speed = speed
-    self.redraw = True # Forces redraw if needed.
-    self.animate_timer = 0.0
-    self.animate_fps = 7
-    self.make_frames()
-    self.image = self.frames[0][0]
-    self.rect = self.image.get_rect(center=pos)
+  def __init__(self, startingPosition, speed, direction, rotationAngleSpeed): 
+    self.hs = math.cos(direction) * speed
+    self.vs = math.sin(direction) * speed
+
+    self.genImage()
+    self.rect = self.image.get_rect(center=startingPosition)
     self.explode = False
-    self.angle = 0
-    self.deadTimer = 40
+    self.rotAngle = 0
+    self.rotSpeed = rotationAngleSpeed
+    self.vapor = 255
     self.dead = False
 
-  def make_frames(self):
-    self.frames = tools.split_sheet(assets.ASTEROID_SHEET, Asteroid.SIZE, Asteroid.SHEET_DIM)
-
-  def make_image(self, now):
-    """
-    Update the sprite's animation as needed.
-    """
-    elapsed = now-self.animate_timer > 1000.0/self.animate_fps
-    if self.redraw or elapsed:
-      self.animate_timer = now
-    self.redraw = False
+  def genImage(self):
+    row = randint(0,3)
+    col = randint(0,4)
+    self.image = assets.FRAMES[row][col]
 
   def updateAngle(self):
     if not self.explode:
-      self.angle += 2
+      self.rotAngle += self.rotSpeed
     else:
-      self.angle += 45
+      self.rotAngle += self.rotSpeed * 2
 
   def disappear(self):
-    if self.deadTimer > 0:
-      self.deadTimer -= 1
+    if self.vapor > 0:
+      self.vapor -= 8
     else:
       self.dead = True
 
@@ -56,20 +46,29 @@ class Asteroid(object):
       if self.rect.collidepoint(point):
         self.explode = True
 
+  def boundsChecking(self):
+    # The asteroid should always be within the bounds of the screen.
+    if not self.rect.colliderect(assets.SCREEN_RECT):
+      self.dead = True
+
   def update(self, now, screen_rect):
     """
     Updates our player appropriately every frame.
     """
+    print self.dead
     if self.dead:
       return
 
     self.updateAngle()
 
     if not self.explode:
+      self.boundsChecking()
       self.mouseCollision()
-      self.rect.x += 1
     else:
       self.disappear()
+
+    self.rect.x += self.hs
+    self.rect.y += self.vs
 
   def draw(self, surface):
     """
@@ -78,7 +77,7 @@ class Asteroid(object):
     if self.dead:
       return
 
-    drawnImage, drawnRect = tools.rot_center(self.image, self.rect, self.angle)
+    drawnImage, drawnRect = tools.rot_center(self.image, self.rect, self.rotAngle)
     # surface.blit(drawnImage, drawnRect)
 
-    tools.blit_alpha(surface, drawnImage, drawnRect.topleft, 255)
+    tools.blit_alpha(surface, drawnImage, drawnRect.topleft, self.vapor)

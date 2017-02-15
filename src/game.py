@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python2
 
 """
 A Relaxing Asteroids game.
@@ -7,6 +7,7 @@ A Relaxing Asteroids game.
 
 import os
 import sys
+import math
 import itertools
 import asteroid as asts
 
@@ -29,7 +30,8 @@ class App(object):
     self.clock  = pg.time.Clock()
     self.fps = 60
     self.done = False
-    self.asteroid = asts.Asteroid(self.screen_rect.center, 3)
+    # Starting Point, Speed, Trajectory Angle, Rotation Speed 
+    self.asteroid = asts.Asteroid(self.screen_rect.center, 3, math.pi, 5)
 
   def event_loop(self):
     """
