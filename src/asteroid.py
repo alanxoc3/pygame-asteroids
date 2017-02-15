@@ -67,6 +67,7 @@ class Asteroid(object):
     # Check if mouse point collides with rectangle.
     if self.rect.collidepoint(point):
       self.explode = True
+      assets.score += 1
       
 
   def boundsChecking(self):
@@ -103,6 +104,4 @@ class Asteroid(object):
       return
 
     drawnImage, drawnRect = tools.rot_center(self.image, self.rect, self.rotAngle)
-    # surface.blit(drawnImage, drawnRect)
-
     tools.blit_alpha(surface, drawnImage, drawnRect.topleft, self.vapor)

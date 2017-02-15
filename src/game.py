@@ -27,11 +27,12 @@ class App(object):
     self.screen = pg.display.get_surface()
     self.screen_rect = self.screen.get_rect()
     self.clock  = pg.time.Clock()
-    self.fps = 60
+    self.fps = 30
     self.done = False
     # Starting Point, Speed, Trajectory Angle, Rotation Speed 
     self.astList = astgroup.AsteroidGroup()
     self.astList.spawnAsteroid()
+    self.keys = pg.key.get_pressed() # All the keys currently held.
     self.prev = 0
 
   def event_loop(self):
@@ -39,7 +40,7 @@ class App(object):
     Pass events on to the player.
     """
     for event in pg.event.get():
-      if event.type == pg.QUIT:
+      if event.type == pg.QUIT or self.keys[pg.K_ESCAPE]:
         self.done = True
       if event.type == pg.MOUSEBUTTONUP:
         return True
@@ -72,8 +73,8 @@ class App(object):
     """
     self.screen.fill(assets.BACKGROUND_COLOR)
     assets.DISPLAYSURF.blit(assets.BG, (0, 0))
- #   textScore = FONT.render(str(asts.SCORE), 1, (255,255,255))
- #   textScore
+    textScore = assets.FONT.render(str(assets.score), 1, (255,255,255))
+    assets.DISPLAYSURF.blit(textScore, (90, 100))
     self.astList.draw(self.screen)
     pg.display.update()
 
@@ -126,32 +127,6 @@ def playSong():
   pg.mixer.music.load(assets.SONGS[myNum])
   pg.mixer.music.play(assets.SONGSPLAYTIMES[myNum])
       
-      
-def split_sheet(sheet, size, columns, rows):
-  """
-  Divide a loaded sprite sheet into subsurfaces.
-  
-  The argument size is the width and height of each frame (w,h)
-  columns and rows are the integer number of cells horizontally and
-  vertically.
-  """
-  subsurfaces = []
-  for y in range(rows):
-    row = []
-    for x in range(columns): 
-      rect = pg.Rect((x*size[0], y*size[1]), size)
-      row.append(sheet.subsurface(rect))
-    subsurfaces.append(row)
-  return subsurfaces
-
-def checkForKeyPress():
-  keyUpEvents = pg.event.get(pg.KEYUP)		
-  if len(keyUpEvents) == 0:		
-    return None		
-  if keyUpEvents[0].key == pg.K_ESCAPE:		
-    terminate()
-  return keyUpEvents[0].key
-
 def main():
   """
   Prepare our environment, create a display, and start the program.
