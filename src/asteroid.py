@@ -12,6 +12,19 @@ class Asteroid(object):
     self.hs = math.cos(direction) * speed
     self.vs = math.sin(direction) * speed
 
+    if self.hs > 0 and self.hs < 1:
+      self.hs = 1
+    elif self.hs < 0 and self.hs > -1:
+      self.hs = -1
+
+    if self.vs > 0 and self.vs < 1:
+      self.vs = 1
+    elif self.vs < 0 and self.vs > -1:
+      self.vs = -1
+
+    self.hs = int(self.hs)
+    self.vs = int(self.vs)
+
     self.genImage()
     self.rect = self.image.get_rect(center=startingPosition)
     self.explode = False
@@ -19,6 +32,7 @@ class Asteroid(object):
     self.rotSpeed = rotationAngleSpeed
     self.vapor = 255
     self.dead = False
+    self.starting = True # For starting off the screen.
 
   def genImage(self):
     row = randint(0,3)
@@ -47,15 +61,17 @@ class Asteroid(object):
         self.explode = True
 
   def boundsChecking(self):
-    # The asteroid should always be within the bounds of the screen.
+    # The asteroid should be within the bounds of the screen unless starting out.
     if not self.rect.colliderect(assets.SCREEN_RECT):
-      self.dead = True
+      if not self.starting:
+        self.dead = True
+    else:
+      self.starting = False
 
-  def update(self, now, screen_rect):
+  def update(self):
     """
     Updates our player appropriately every frame.
     """
-    print self.dead
     if self.dead:
       return
 

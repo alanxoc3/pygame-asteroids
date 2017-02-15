@@ -9,12 +9,10 @@ import os
 import sys
 import math
 import itertools
-import asteroid as asts
-
-
+import astgroup
+import assets
 import pygame as pg
 
-import assets
 
 class App(object):
   """
@@ -31,7 +29,7 @@ class App(object):
     self.fps = 60
     self.done = False
     # Starting Point, Speed, Trajectory Angle, Rotation Speed 
-    self.asteroid = asts.Asteroid(self.screen_rect.center, 3, math.pi, 5)
+    self.astList = astgroup.AsteroidGroup()
 
   def event_loop(self):
     """
@@ -57,14 +55,14 @@ class App(object):
     The current time is passed for purposes of animation.
     """
     now = pg.time.get_ticks()
-    self.asteroid.update(now, self.screen_rect)
+    self.astList.update()
 
   def render(self):
     """
     Perform all necessary drawing and update the screen.
     """
     self.screen.fill(assets.BACKGROUND_COLOR)
-    self.asteroid.draw(self.screen)
+    self.astList.draw(self.screen)
     pg.display.update()
 
   def render_start_screen(self):

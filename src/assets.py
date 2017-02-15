@@ -6,6 +6,7 @@ from datetime import datetime
 
 CAPTION = "4-Direction Movement with Animation"
 SCREEN_SIZE = (500, 500)
+HALF_SCREEN = (SCREEN_SIZE[0] / 2, SCREEN_SIZE[1] / 2)
 
 BACKGROUND_COLOR = pg.Color("black")
 COLOR_KEY = pg.Color("white")
@@ -17,18 +18,12 @@ DIRECT_DICT = {pg.K_LEFT  : (-1, 0),
 
 WHITE   = (255, 255, 255)
 DARKGREEN = (  0, 155,   0)
-GREEN     = (  0, 255,   0)  
+GREEN     = (  0, 255,   0)
 BLACK     = (  0,   0,   0)
 BGCOLOR   = BLACK
 
 SIZE = (72, 72)
 SHEET_DIM = (5, 4)
-
-
-
-
-
-
 
 def load_assets():
   global ASTEROID_SHEET
