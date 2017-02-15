@@ -9,6 +9,7 @@ import os
 import sys
 import math
 import itertools
+import random
 import asteroid as asts
 
 
@@ -64,6 +65,7 @@ class App(object):
     Perform all necessary drawing and update the screen.
     """
     self.screen.fill(assets.BACKGROUND_COLOR)
+    assets.DISPLAYSURF.blit(assets.BG, (0, 0))
     self.asteroid.draw(self.screen)
     pg.display.update()
 
@@ -72,6 +74,7 @@ class App(object):
     Perform all necessary drawing and update the screen.
     """
     self.screen.fill(assets.BACKGROUND_COLOR)
+    assets.DISPLAYSURF.blit(assets.BG, (0, 0))
     assets.DISPLAYSURF.blit(assets.QUOTE1, (90, 100))
     assets.DISPLAYSURF.blit(assets.QUOTE2, (90, 130))
     assets.DISPLAYSURF.blit(assets.LABEL, (90, 400))
@@ -86,27 +89,38 @@ class App(object):
     
     pg.mixer.Sound.play(assets.RELAX)
     pg.mixer.music.load('assets/seven.mp3')
-    pg.mixer.music.play(-1)
+    pg.mixer.music.play(1)
 
     while not self.done:
       tmp = self.event_loop()
-
+      
       if not startScreen:
         self.update()
-
+        
       # Render
       if startScreen:
         self.render_start_screen()
       else:
         self.render()
-       
 
-      if startScreen:
+      if not startScreen and not pg.mixer.music.get_busy():
+         playSong()
+
+        
+      if startScreen and not pg.mixer.get_busy():
+#        if tmp:
+#          pg.mixer.music.stop()
         startScreen = not tmp
 
       self.clock.tick(self.fps)
       self.display_fps()
 
+def playSong():
+  myNum = random.randint(0, 3)
+  pg.mixer.music.load(assets.SONGS[myNum])
+  pg.mixer.music.play(assets.SONGSPLAYTIMES[myNum])
+      
+      
 def split_sheet(sheet, size, columns, rows):
   """
   Divide a loaded sprite sheet into subsurfaces.
