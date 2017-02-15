@@ -58,8 +58,9 @@ class App(object):
     The current time is passed for purposes of animation.
     """
     now = pg.time.get_ticks()
+    waitTime = 400
 
-    if now-self.prev > 1000:
+    if now-self.prev > waitTime:
       self.astList.spawnAsteroid()
       self.prev = now
 
@@ -147,7 +148,6 @@ def checkForKeyPress():
   if keyUpEvents[0].key == pg.K_ESCAPE:		
     terminate()
   return keyUpEvents[0].key
-         
 
 def main():
   """

@@ -69,8 +69,8 @@ class AsteroidGroup(object):
       else:
         ang = uniform(-(onebound + lowbound), -(onebound + upbound))
 
-    spd = randint(1,4)
-    rot = randint(-3,3)
+    spd = randint(1,8)
+    rot = randint(-5,5)
 
     self.asteroids.append(asteroid.Asteroid( (x, y), spd, ang, rot))
 

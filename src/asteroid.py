@@ -62,13 +62,12 @@ class Asteroid(object):
 
   def mouseCollision(self):
     # True if the left button is pressed.
-    if pg.mouse.get_pressed()[0]:
-      point = pg.mouse.get_pos()
+    point = pg.mouse.get_pos()
 
-      # Check if mouse point collides with rectangle.
-      if self.rect.collidepoint(point):
-        self.explode = True
-        self.explode = True
+    # Check if mouse point collides with rectangle.
+    if self.rect.collidepoint(point):
+      self.explode = True
+      self.explode = True
 
   def boundsChecking(self):
     # The asteroid should be within the bounds of the screen unless starting out.
