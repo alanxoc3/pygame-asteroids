@@ -26,7 +26,8 @@ class Asteroid(object):
     self.vs = int(self.vs)
 
     self.genImage()
-    self.rect = self.image.get_rect(center=startingPosition)
+    self.genSize(startingPosition)
+
     self.explode = False
     self.rotAngle = 0
     self.rotSpeed = rotationAngleSpeed
@@ -39,6 +40,13 @@ class Asteroid(object):
     col = randint(0,4)
     self.image = assets.FRAMES[row][col]
 
+  def genSize(self, startingPosition):
+    w = randint(assets.SIZE[0], int(assets.SIZE[0] * 1.5) )
+    h = randint(assets.SIZE[1], int(assets.SIZE[1] * 1.5) )
+
+    self.image = pg.transform.smoothscale( self.image, (w, h) )
+    self.rect = self.image.get_rect(center=startingPosition)
+
   def updateAngle(self):
     if not self.explode:
       self.rotAngle += self.rotSpeed
@@ -46,8 +54,9 @@ class Asteroid(object):
       self.rotAngle += self.rotSpeed * 2
 
   def disappear(self):
+    vapor_speed = 20
     if self.vapor > 0:
-      self.vapor -= 8
+      self.vapor -= vapor_speed
     else:
       self.dead = True
 
@@ -58,6 +67,7 @@ class Asteroid(object):
 
       # Check if mouse point collides with rectangle.
       if self.rect.collidepoint(point):
+        self.explode = True
         self.explode = True
 
   def boundsChecking(self):

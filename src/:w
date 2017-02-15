@@ -59,11 +59,12 @@ class App(object):
     """
     now = pg.time.get_ticks()
 
-    if now-self.prev > 1000:
+    if now-prev % 1000 == 0:
       self.astList.spawnAsteroid()
       self.prev = now
 
     self.astList.update()
+    print now
 
   def render(self):
     """

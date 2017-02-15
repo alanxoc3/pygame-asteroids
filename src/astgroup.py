@@ -85,7 +85,6 @@ class AsteroidGroup(object):
       ast.update()
 
     self.clean()
-    print len(self.asteroids)
 
   # Removes all the dead asteroids.
   def clean(self):
