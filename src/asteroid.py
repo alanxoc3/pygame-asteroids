@@ -67,7 +67,7 @@ class Asteroid(object):
     # Check if mouse point collides with rectangle.
     if self.rect.collidepoint(point):
       self.explode = True
-      self.explode = True
+      
 
   def boundsChecking(self):
     # The asteroid should be within the bounds of the screen unless starting out.

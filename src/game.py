@@ -72,6 +72,8 @@ class App(object):
     """
     self.screen.fill(assets.BACKGROUND_COLOR)
     assets.DISPLAYSURF.blit(assets.BG, (0, 0))
+ #   textScore = FONT.render(str(asts.SCORE), 1, (255,255,255))
+ #   textScore
     self.astList.draw(self.screen)
     pg.display.update()
 
@@ -91,7 +93,8 @@ class App(object):
     Our main game loop; I bet you'd never have guessed.
     """
     startScreen = True
-    musicStart = False
+    SCORE = 0
+    pg.mouse.set_cursor(*pg.cursors.broken_x)
     
     pg.mixer.Sound.play(assets.RELAX)
     pg.mixer.music.load('assets/seven.mp3')
@@ -157,8 +160,6 @@ def main():
   pg.init()
   pg.display.set_caption(assets.CAPTION)
   assets.load_assets()
-  
-  pg.mouse.set_cursor(*pg.cursors.broken_x)
 
   App().main_loop()
   pg.quit()
