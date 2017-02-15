@@ -103,6 +103,4 @@ class Asteroid(object):
       return
 
     drawnImage, drawnRect = tools.rot_center(self.image, self.rect, self.rotAngle)
-    # surface.blit(drawnImage, drawnRect)
-
     tools.blit_alpha(surface, drawnImage, drawnRect.topleft, self.vapor)

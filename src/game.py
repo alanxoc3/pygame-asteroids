@@ -27,7 +27,7 @@ class App(object):
     self.screen = pg.display.get_surface()
     self.screen_rect = self.screen.get_rect()
     self.clock  = pg.time.Clock()
-    self.fps = 60
+    self.fps = 30
     self.done = False
     # Starting Point, Speed, Trajectory Angle, Rotation Speed 
     self.astList = astgroup.AsteroidGroup()
