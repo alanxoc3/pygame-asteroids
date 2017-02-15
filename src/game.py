@@ -38,7 +38,7 @@ class App(object):
     for event in pg.event.get():
       if event.type == pg.QUIT:
         self.done = True
-      elif event.type in (pg.KEYUP, pg.KEYDOWN):
+      if event.type == pg.MOUSEBUTTONUP:
         return True
     return False
 
@@ -80,8 +80,11 @@ class App(object):
     Our main game loop; I bet you'd never have guessed.
     """
     startScreen = True
+    musicStart = False
     
     pg.mixer.Sound.play(assets.RELAX)
+    pg.mixer.music.load('assets/seven.mp3')
+    pg.mixer.music.play(-1)
 
     while not self.done:
       tmp = self.event_loop()
@@ -94,6 +97,7 @@ class App(object):
         self.render_start_screen()
       else:
         self.render()
+       
 
       if startScreen:
         startScreen = not tmp
